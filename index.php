@@ -1,20 +1,34 @@
 <?php
-//Convert string to camel case
+//Pick peaks
 
-function toCamelCase($str)
+function pickPeaks(array $arr)
 {
-	trim($str);
-	$arr = str_split($str, 1);
 	$count = count($arr);
-	$newStr = "";
-	for ($i = 0; $i < $count; $i++) {
-		if ($arr[$i] != "_" && $arr[$i] != "-") $newStr .= $arr[$i];
-		else {
-			$i++;
-			$newStr .= strtoupper($arr[$i]);
-			continue;
+	$result = ['pos' => [], 'peaks' => []];
+
+	for ($i = 1; $i < $count - 1; $i++) {
+		if ($arr[$i] > $arr[$i - 1] && $arr[$i] > $arr[$i + 1]) {
+			array_push($result['pos'], $i);
+			array_push($result['peaks'], $arr[$i]);
+		} elseif ($i <= $count - 2 && $arr[$i] == $arr[$i + 1] && $arr[$i] > $arr[$i - 1]) {
+			array_push($result['pos'], $i);
+			array_push($result['peaks'], $arr[$i]);
+			while ($i < $count - 1) {
+				if ($arr[$i] == $arr[$i + 1])
+					$i++;
+				else break;
+			}
+			if ($i == $count - 1 && $arr[$i] >= $arr[$i - 1]) {
+				array_pop($result['pos']);
+				array_pop($result['peaks']);
+			}
+			if ($i < $count - 1 && $arr[$i] < $arr[$i + 1]) {
+				array_pop($result['pos']);
+				array_pop($result['peaks']);
+			}
 		}
 	}
-	return $newStr;
+	return $result;
 }
-echo toCamelCase($str);
+
+print_r(pickPeaks($arr));
