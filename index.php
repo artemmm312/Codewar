@@ -1,24 +1,20 @@
 <?php
-//WeIrD StRiNg CaSe
+//Convert string to camel case
 
-function toWeirdCase($string)
+function toCamelCase($str)
 {
-	trim($string);
-	$arr = str_split($string, 1);
+	trim($str);
+	$arr = str_split($str, 1);
 	$count = count($arr);
 	$newStr = "";
-	for ($i = 0, $j = 1; $i <= $count; $i += 2, $j += 2) {
-		if ($arr[$i] !== " ") {
-			$newStr .= strtoupper($arr[$i]);
-			$newStr .= strtolower($arr[$j]);
-		} elseif ($j == $count) $newStr .= strtoupper($arr[$i]);
+	for ($i = 0; $i < $count; $i++) {
+		if ($arr[$i] != "_" && $arr[$i] != "-") $newStr .= $arr[$i];
 		else {
-			$newStr .= $arr[$i];
-			$i -= 1;
-			$j -= 1;
+			$i++;
+			$newStr .= strtoupper($arr[$i]);
 			continue;
 		}
 	}
 	return $newStr;
 }
-echo toWeirdCase($string);
+echo toCamelCase($str);
