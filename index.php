@@ -1,28 +1,31 @@
 <?php
-//Moving Zeros To The End
+//Create Phone Number
 
-function moveZeros(array $items): array
+$numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+function createPhoneNumber($numbersArray)
 {
-	$count = count($items);
-	$result = [];
-	for ($i = 0; $i < $count; $i++) {
-		if ($items[$i] !== 0 && $items[$i] !== 0.0) array_push($result, $items[$i]);
+	$result = "(";
+	for ($i = 0; $i < 3; $i++) {
+		$result .= "$numbersArray[$i]";
 	}
-	$count2 = count($result);
-	if ($count > $count2) {
-		$odds = $count - $count2;
-		for ($i = 0; $i < $odds; $i++) {
-			array_push($result, 0);
-		}
+	$result .= ") ";
+	for ($i = 3; $i < 6; $i++) {
+		$result .= "$numbersArray[$i]";
+	}
+	$result .= "-";
+	for ($i = 6; $i < 10; $i++) {
+		$result .= "$numbersArray[$i]";
 	}
 	return $result;
 }
 
-print_r(moveZeros($items));
+echo createPhoneNumber($numbersArray); 
 
 
-// #2 вариант
-/* function moveZeros(array $items): array
+//вариант #2
+/* function createPhoneNumber($numbersArray)
 {
-	return array_pad(array_filter($items, function ($x) {return $x !== 0 and $x !== 0.0;}), count($items), 0);
-} */
+	return vsprintf("(%d%d%d) %d%d%d-%d%d%d%d", $numbersArray);
+}
+ */
