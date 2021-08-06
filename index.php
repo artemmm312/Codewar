@@ -1,31 +1,23 @@
 <?php
-//Create Phone Number
+//Ball Upwards
 
-$numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+$v0 = 85;
 
-function createPhoneNumber($numbersArray)
+function maxBall($v0)
 {
-	$result = "(";
-	for ($i = 0; $i < 3; $i++) {
-		$result .= "$numbersArray[$i]";
+	$h = 0;
+	$t = 0.0;
+	$v0 = $v0 / 3.6;
+	$g = 9.81;
+	$arr = [[], []];
+	for ($t; $h >= 0; $t += 0.1) {
+		$h = $v0 * $t - 0.5 * $g * $t * $t;
+		$arr[0][] += $t;
+		$arr[1][] +=  $h;
 	}
-	$result .= ") ";
-	for ($i = 3; $i < 6; $i++) {
-		$result .= "$numbersArray[$i]";
+	foreach ($arr[1] as $key => $value) {
+		if ($value == max($arr[1]))
+			return $arr[0][$key] * 10;
 	}
-	$result .= "-";
-	for ($i = 6; $i < 10; $i++) {
-		$result .= "$numbersArray[$i]";
-	}
-	return $result;
 }
-
-echo createPhoneNumber($numbersArray); 
-
-
-//вариант #2
-/* function createPhoneNumber($numbersArray)
-{
-	return vsprintf("(%d%d%d) %d%d%d-%d%d%d%d", $numbersArray);
-}
- */
+echo maxBall($v);
