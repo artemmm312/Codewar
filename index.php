@@ -1,14 +1,21 @@
 <?php
-//Sum of the first nth term of Series
+//Exes and Ohs
 
-function series_sum($n)
+function XO($s)
 {
-	$sum = 0;
-	for ($i = 0, $j = 1; $i < $n; $i++, $j += 3) {
-		$sum += (1 / $j);
-	}
-	$sum = number_format($sum, 2, ".");
-	return "$sum";
+	$o = substr_count($s, "o");
+	$O = substr_count($s, "O");
+	$x = substr_count($s, "x");
+	$X = substr_count($s, "X");
+	$oO = $o + $O;
+	$xX = $x + $X;
+	if ($oO == $xX || $oO == 0 && $xX == 0) return true;
+	else return false;
 }
+print_r(XO($s));
 
-print_r(series_sum(5));
+#2
+/* function XO($s) {
+	$lower = strtolower($s);
+	return substr_count($lower, 'x') === substr_count($lower, 'o');
+} */
