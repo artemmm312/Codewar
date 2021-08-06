@@ -1,9 +1,24 @@
 <?php
-//Jaden Casing Strings
+//WeIrD StRiNg CaSe
 
-function toJadenCase($string)
+function toWeirdCase($string)
 {
-	return $string = mb_convert_case($string, MB_CASE_TITLE, "UTF-8");
+	trim($string);
+	$arr = str_split($string, 1);
+	$count = count($arr);
+	$newStr = "";
+	for ($i = 0, $j = 1; $i <= $count; $i += 2, $j += 2) {
+		if ($arr[$i] !== " ") {
+			$newStr .= strtoupper($arr[$i]);
+			$newStr .= strtolower($arr[$j]);
+		} elseif ($j == $count) $newStr .= strtoupper($arr[$i]);
+		else {
+			$newStr .= $arr[$i];
+			$i -= 1;
+			$j -= 1;
+			continue;
+		}
+	}
+	return $newStr;
 }
-
-var_dump(toJadenCase($string));
+echo toWeirdCase($string);
