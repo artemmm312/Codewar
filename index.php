@@ -1,17 +1,13 @@
 <?php
-//Find the divisors!
+//Bit Counting 
 
-function divisors(int $value)
+function countBits($n) 
 {
-	$arr = [];
-	if ($value > 1) {
-		for ($i = 2; $i <= (int)($value / 2); $i++) {
-			//$num = $value % $i;
-			if (($value % $i) == 0) $arr[] = $i;
-		}
-		if (count($arr) > 0) return $arr;
-		else echo "$value is prime";
-	} else echo "the value must be integer and greater than zero";
+	if ($n > 0)
+	{
+	$b = decbin($n);
+	return substr_count ($b, "1");
+	}
+	else echo "Number must be whole and non-negative";
 }
-
-print_r(divisors(81));
+print_r(countBits(113));
