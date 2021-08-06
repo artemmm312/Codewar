@@ -1,21 +1,18 @@
 <?php
-//Exes and Ohs
+//Build Tower
 
-function XO($s)
+function tower_builder(int $n): array
 {
-	$o = substr_count($s, "o");
-	$O = substr_count($s, "O");
-	$x = substr_count($s, "x");
-	$X = substr_count($s, "X");
-	$oO = $o + $O;
-	$xX = $x + $X;
-	if ($oO == $xX || $oO == 0 && $xX == 0) return true;
-	else return false;
+	if ($n > 0) {
+		$tower = [];
+		$block = "*";
+		$length = $n * 2 - 1;
+		for ($i = 1, $j = 1; $i <= $n, $j <= $length; $i++, $j += 2) {
+			$floor = str_pad(str_pad($block, $j, "*"), $length, " ", STR_PAD_BOTH);
+			$tower[] = $floor;
+		}
+		return $tower;
+	} else echo "The number of floors must be integer and greater than zero";
 }
-print_r(XO($s));
 
-#2
-/* function XO($s) {
-	$lower = strtolower($s);
-	return substr_count($lower, 'x') === substr_count($lower, 'o');
-} */
+print_r(tower_builder(5));
