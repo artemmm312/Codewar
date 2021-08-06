@@ -1,34 +1,28 @@
 <?php
-//Pick peaks
+//Moving Zeros To The End
 
-function pickPeaks(array $arr)
+function moveZeros(array $items): array
 {
-	$count = count($arr);
-	$result = ['pos' => [], 'peaks' => []];
-
-	for ($i = 1; $i < $count - 1; $i++) {
-		if ($arr[$i] > $arr[$i - 1] && $arr[$i] > $arr[$i + 1]) {
-			array_push($result['pos'], $i);
-			array_push($result['peaks'], $arr[$i]);
-		} elseif ($i <= $count - 2 && $arr[$i] == $arr[$i + 1] && $arr[$i] > $arr[$i - 1]) {
-			array_push($result['pos'], $i);
-			array_push($result['peaks'], $arr[$i]);
-			while ($i < $count - 1) {
-				if ($arr[$i] == $arr[$i + 1])
-					$i++;
-				else break;
-			}
-			if ($i == $count - 1 && $arr[$i] >= $arr[$i - 1]) {
-				array_pop($result['pos']);
-				array_pop($result['peaks']);
-			}
-			if ($i < $count - 1 && $arr[$i] < $arr[$i + 1]) {
-				array_pop($result['pos']);
-				array_pop($result['peaks']);
-			}
+	$count = count($items);
+	$result = [];
+	for ($i = 0; $i < $count; $i++) {
+		if ($items[$i] !== 0 && $items[$i] !== 0.0) array_push($result, $items[$i]);
+	}
+	$count2 = count($result);
+	if ($count > $count2) {
+		$odds = $count - $count2;
+		for ($i = 0; $i < $odds; $i++) {
+			array_push($result, 0);
 		}
 	}
 	return $result;
 }
 
-print_r(pickPeaks($arr));
+print_r(moveZeros($items));
+
+
+// #2 вариант
+/* function moveZeros(array $items): array
+{
+	return array_pad(array_filter($items, function ($x) {return $x !== 0 and $x !== 0.0;}), count($items), 0);
+} */
